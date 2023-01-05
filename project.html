@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project CRUD-Operations</title>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+</head>
+
+<body>
+    <main>
+        <div>
+            <h1 style="text-align: center;">Create New Address Book</h1>
+
+            <!-- Link for Create -->
+            <a href="./Create.html">Create</a>
+
+            <table  id="tblData" ">
+                <thead>
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Street</th>
+                        <th>Street No</th>
+                        <th>City</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+            </table>
+
+
+        </div>
+    </main>
+</body>
+<script>
+    function getData(element) {
+        fetch("https://localhost:5001/api/AddressBooks")
+            .then(response => response.json())
+            .then(data => {
+
+                const userTBody = document.createElement('tbody');
+                for (i = 0; i < data.length; i++) {
+                    const user = data[i];
+                    console.log(user.name);
+                    const userTr = document.createElement('tr');
+                    const userName = document.createElement('td');
+
+                    userName.textContent = `${user.name}`;
+                    const userStreet = document.createElement('td');
+                    userStreet.textContent = `${user.street}`;
+                    const userStreetNo = document.createElement('td');
+                    userStreetNo.textContent = `${user.streetNo}`;
+                    const userCity = document.createElement('td');
+                    userCity.textContent = `${user.city}`;
+                    const userEmail = document.createElement('td');
+                    userEmail.textContent = `${user.email}`;
+                    const userPhoneNum = document.createElement('td');
+                    userPhoneNum.textContent = `${user.phoneNumber}`;
+                    //link for details
+                    // const a = document.createElement('a');
+                    // a.textContent = "Details";
+                    // a.href = `/AddressBooks/Details/${user.id}`;
+                    
+                    
+                    // // Link for Delete
+                    // const d = document.createElement('a');
+                    // d.textContent = "Delete";
+                    // d.href = `/AddressBooks/Delete/${user.id}`;
+
+                    // //link for Edit
+                    // const e = document.createElement('a');
+                    // e.textContent = "Edit";
+                    // e.href = `/AddressBooks/Edit/${user.id}`;
+
+
+                    userTr.appendChild(userName);
+                    userTr.appendChild(userStreet);
+                    userTr.appendChild(userStreetNo);
+                    userTr.appendChild(userCity);
+                    userTr.appendChild(userEmail);
+                    userTr.appendChild(userPhoneNum);
+                    //links
+                    
+                    //userTr.appendChild(a);
+                    // userTr.appendChild(d);
+                    // userTr.appendChild(e);
+
+
+                    userTBody.appendChild(userTr);
+
+
+                }
+                element.appendChild(userTBody);
+
+            });
+
+    }
+
+
+
+
+     document.addEventListener('DOMContentLoaded', () => {
+            const mainElement = document.querySelector("#tblData");
+            getData(mainElement);
+            //getUsers();
+        }); 
+
+</script>
+
+</html>
