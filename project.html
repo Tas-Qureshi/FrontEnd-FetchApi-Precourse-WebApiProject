@@ -23,6 +23,17 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+    a {
+        width: 20%;
+        background-color: #7ec580;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
 </style>
 
 </head>
@@ -33,7 +44,9 @@
             <h1 style="text-align: center;">Create New Address Book</h1>
 
             <!-- Link for Create -->
-            <a href="./Create.html">Create</a>
+           <a  href="./Create.html">Create</a>
+           <br>
+           <br>
 
             <table  id="tblData" ">
                 <thead>
@@ -55,79 +68,6 @@
         </div>
     </main>
 </body>
-<script>
-    function getData(element) {
-        fetch("https://localhost:5001/api/AddressBooks")
-            .then(response => response.json())
-            .then(data => {
-
-                const userTBody = document.createElement('tbody');
-                for (i = 0; i < data.length; i++) {
-                    const user = data[i];
-                    console.log(user.name);
-                    const userTr = document.createElement('tr');
-                    const userName = document.createElement('td');
-
-                    userName.textContent = `${user.name}`;
-                    const userStreet = document.createElement('td');
-                    userStreet.textContent = `${user.street}`;
-                    const userStreetNo = document.createElement('td');
-                    userStreetNo.textContent = `${user.streetNo}`;
-                    const userCity = document.createElement('td');
-                    userCity.textContent = `${user.city}`;
-                    const userEmail = document.createElement('td');
-                    userEmail.textContent = `${user.email}`;
-                    const userPhoneNum = document.createElement('td');
-                    userPhoneNum.textContent = `${user.phoneNumber}`;
-                    //link for details
-                    // const a = document.createElement('a');
-                    // a.textContent = "Details";
-                    // a.href = `/AddressBooks/Details/${user.id}`;
-                    
-                    
-                    // // Link for Delete
-                    // const d = document.createElement('a');
-                    // d.textContent = "Delete";
-                    // d.href = `/AddressBooks/Delete/${user.id}`;
-
-                    // //link for Edit
-                    // const e = document.createElement('a');
-                    // e.textContent = "Edit";
-                    // e.href = `/AddressBooks/Edit/${user.id}`;
-
-
-                    userTr.appendChild(userName);
-                    userTr.appendChild(userStreet);
-                    userTr.appendChild(userStreetNo);
-                    userTr.appendChild(userCity);
-                    userTr.appendChild(userEmail);
-                    userTr.appendChild(userPhoneNum);
-                    //links
-                    
-                    //userTr.appendChild(a);
-                    // userTr.appendChild(d);
-                    // userTr.appendChild(e);
-
-
-                    userTBody.appendChild(userTr);
-
-
-                }
-                element.appendChild(userTBody);
-
-            });
-
-    }
-
-
-
-
-     document.addEventListener('DOMContentLoaded', () => {
-            const mainElement = document.querySelector("#tblData");
-            getData(mainElement);
-            //getUsers();
-        }); 
-
-</script>
+<script src="./Crud.js"></script>
 
 </html>

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 <style>
-    input[type=text],
+    input,
     select {
         width: 100%;
         padding: 12px 20px;
@@ -12,9 +19,9 @@
         box-sizing: border-box;
     }
 
-    input[type=submit] {
-        width: 100%;
-        background-color: #4CAF50;
+    button, a {
+        width: 10%;
+        background-color: #7ec580;
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -36,32 +43,80 @@
 
 <body>
 
-    <h3>Create AddressBook</h3>
+    <h1 style="text-align: center;">Create AddressBook</h1>
 
     <div>
-        <form action="https://localhost:5001/api/AddressBooks" method="post" >
-            <label for="Name">Name</label>
-            <input type="text" id="name" name="Name" placeholder="Your name..">
+        <form action="./project.html">
+            <label >Name</label>
+            <input type="text" id="name" placeholder="Your name..">
 
-            <label for="Street"></label>
-            <input type="text" id="street" name="Street" placeholder="Your street..">
+            <label ></label>
+            <input type="text" id="street" placeholder="Your street..">
 
-            <label for="streetNo">Steet No</label>
-            <input type="text" id="streetNo" name="streetNo" placeholder="Your street no..">
+            <label >Steet No</label>
+            <input type="number" id="streetNo" placeholder="Your street no..">
 
-            <label for="City">City</label>
+            <label >City</label>
             <input type="text" id="city" placeholder="Your city..">
 
-            <label for="Email">Email</label>
-            <input type="text" id="email" placeholder="Your email..">
+            <label >Email</label>
+            <input type="email" id="email" placeholder="Your email..">
 
-            <label for="phoneNumber">Phone Number</label>
+            <label >Phone Number</label>
             <input type="text" id="phoneNumber" placeholder="Your phone number..">
 
-            <input type="submit" value="Submit">
+            <button id="btnAdd" type="submit">Create</button>
+            
         </form>
+        <br>
+        <a style="background-color: #ccc;" href="./project.html">Back To List</a>
     </div>
 
 </body>
+
+
+<script>
+    // Create 
+        const addBook = document.getElementById("btnAdd");
+        const name = document.querySelector("#name");
+        const street = document.querySelector("#street");
+        const streetNo = document.querySelector("#streetNo");
+        const city = document.querySelector("#city");
+        const email = document.querySelector("#email");
+        const phoneNumber = document.querySelector("#phoneNumber");
+
+        function addAddressBook(Name, Street, StreetNo, City, Email, PhoneNumber) {
+            const body = {
+                name: Name,
+                street: Street,
+                streetNo: StreetNo,
+                city: City,
+                email: Email,
+                phoneNumber: PhoneNumber,
+            };
+            fetch("https://localhost:5001/api/AddressBooks", {
+              method: "POST",
+              body: JSON.stringify(body),
+              headers: {
+                "content-type": "application/json",
+              },
+            })
+            
+                .then((res) => res.json())
+                .then((data) => console.log(data))
+                .catch(console.log("noData"));
+        }
+
+        addBook.addEventListener("click", () => {
+            addAddressBook(
+                name.value,
+                street.value,
+                streetNo.value,
+                city.value,
+                email.value,
+                phoneNumber.value
+            );
+        });
+</script>
 
 </html>
